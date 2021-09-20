@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+    <h1>Listing for {{listings.title}}</h1>
+
+    <p>Time: {{ listings.time }}</p>
+    <br>
+
+    <p>Starting price:{{ listings.price }}</p>
+    <br>
+
+    {% if listings.image %}
+    <img src="{{ listings.image.url }}">
+    <br>
+    {% endif %}
+
+    <p>Product Description: </p>
+    {{ listings.description }}
+    <br>
+
+{% endblock %}
