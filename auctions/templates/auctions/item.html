@@ -1,0 +1,45 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+    <h1>Listing for {{listings.title}}</h1>
+
+    <p>Time: {{ listings.time }}</p>
+    <br>
+
+    <p>Starting price:{{ listings.starting_bid }}</p>
+    <br>
+
+    <p>Current Bid:{{ listings.offer }}</p>
+    <br>
+
+    {% if listings.image %}
+    <img src="{{ listings.image.url }}">
+    <br>
+    {% endif %}
+
+    <p>Product Description: </p>
+    {{ listings.description }}
+    <br>
+
+    <a href="{% url 'watchlist' %}"> Add to watchlist</a>
+    <br>
+    <a href="{% url 'watchlist' %}"> Remove from watchlist</a>
+
+    <form method="POST">
+        {% csrf_token %}
+    
+        {{comment_form}}
+    
+        <input type="submit" value="Comment" >
+    </form>
+
+
+    <ul>
+        {% for comments in Comments %}
+            <li>{{ comments }}</li>        
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
