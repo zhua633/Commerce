@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Category</h2>
+
+    {% if categories is None %}
+        <p>There are no listings in this category</p>
+    {% endif %}
+
+    {% if categories %}
+
+        <ul>
+            {% for list_id in categories %}
+                <li><a href="{% url 'item' list_id %}">{{ list_id }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

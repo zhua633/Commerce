@@ -3,13 +3,13 @@
 {% block body %}
 <h2>Current Watchlist</h2>
 <ul>
-    {% if watchlist.listing %}
-
-        {% for listing in watchlist %}
-        <li><a href="{% url 'item' listing.listing_id %}"> {{listing}}</a></li>    
-        {% endfor %}
-
-    {% endif %}
+    {% for listing in listings %}
+        <li><a href="{% url 'item' listing.listing_id %}"> {{ listing.listing_id }}</a></li>    
+    {% empty %}
+        <p>There are no entries in the watchlist.</p>
+    {% endfor %}
 </ul>
+
+<a href="{% url 'index' %}"> Return to home page</a>
 
 {% endblock %}

@@ -32,21 +32,22 @@ class Listing(models.Model):
     starting_bid=models.FloatField(max_length=10)
     time=models.DateTimeField(auto_now_add=True, blank=True)
     owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name="owner")
-    image = models.ImageField(null=True, blank=True)
-    offer=models.FloatField(max_length=10,null=True, blank=True)
+    image = models.ImageField(upload_to='images_database', null=True, blank=True)
+    offer=models.FloatField(max_length=10,default=0, null=True, blank=True)
     category=models.CharField(max_length=20,choices=CATEGORIES,default="Fashion")
-    watcher=models.ManyToManyField(User, related_name="watcher_list")
+    buyer=models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name="buyer")
     watched=models.BooleanField(default=False)
+    closed=models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.listing_id}.{self.title} has description of : {self.description} is bidded at {self.offer}"
+        return f"{self.title} Current bid: {self.offer} {self.description} "
 
 
 class Bid(models.Model):
     bid_id = models.BigAutoField(primary_key=True)
     user=ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name="bidder")
     time=models.DateTimeField(auto_now_add=True, blank=True)
-    bid=models.FloatField(max_length=10,null=True, blank=True)
+    bid=models.FloatField(max_length=10)
 
     #Turns objects into a string
     def __str__(self):
@@ -57,6 +58,7 @@ class Comment(models.Model):
     comment_id = models.BigAutoField(primary_key=True)
     time=models.DateTimeField(auto_now_add=True, blank=True)
     comments=models.CharField(max_length=255)
+    
     def __str__(self):
         return f"{self.commenter} commented {self.comments} at {self.time}"
 

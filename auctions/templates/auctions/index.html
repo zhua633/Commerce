@@ -2,10 +2,12 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-    <ul>
-        {% for listing in listings %}
-        <li><a href="{% url 'item' listing.listing_id %}"> {{listing}}</a></li>        
-        {% endfor %}
-    </ul>
+    {% for listing in listings %}
+    <li><a href="{% url 'item' listing.listing_id %}"> {{listing}}</a></li>
+
+    {% if listing.image %}
+    <img src="{{ listing.image.url }}" alt="image" style="width: 300px; height: auto">
+    {% endif %}        
+    {% endfor %}        
 
 {% endblock %}
